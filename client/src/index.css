@@ -1,0 +1,30 @@
+@import url(https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/cyborg/bootstrap.min.css);
+
+.App{
+    position: relative;
+    padding: 1rem 0;
+}
+.track{
+    display: block;
+}
+.ago::first-letter{
+    text-transform: capitalize;
+}
+.loading-overlay{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+.loading-icon{
+    position: absolute;
+    width: 56px;
+    height: 80px;
+    /* background: transparent url(/images/audio.svg) no-repeat; */
+    left: 50%;
+    top: 300px;
+    transform: translateX(-50%);
+}

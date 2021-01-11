@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "NowPlaying6Music"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1xzsbsrhor33g"
+s3_prefix = "NowPlaying6Music"
+region = "eu-west-2"
+profile = "windmill"
+capabilities = "CAPABILITY_IAM"
