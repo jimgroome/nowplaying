@@ -23,7 +23,7 @@
     position: absolute;
     width: 56px;
     height: 80px;
-    /* background: transparent url(/images/audio.svg) no-repeat; */
+    background: transparent url(./audio.svg) no-repeat;
     left: 50%;
     top: 300px;
     transform: translateX(-50%);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 function App() {
-  const [tracks, setTracks] = useState([]);
+  const [tracks, setTracks] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -15,43 +15,6 @@ function App() {
         setTracks(data);
         setLoading(false);
       });
-    // await axios
-    //   .get("https://morning-beach-46090.herokuapp.com/https://www.last.fm/user/bbc6music")
-    //   .then((response) => {
-    //     const $ = cheerio.load(response.data);
-    //     let _tracks = [];
-    //     const pageData = $("#recent-tracks-section .chartlist tbody .chartlist-row");
-    //     if (pageData.length) {
-    //       setLoading(false);
-    //       let count = 0;
-    //       pageData.each((i, track) => {
-    //         const artist = track.children[9].children[1].children[0].data;
-    //         const title = track.children[7].children[1].children[0].data;
-    //         const ago = track.children[15].children[1].children[0].data;
-    //         const url = "https://music.youtube.com/search?q=" + encodeURIComponent(artist + " " + title);
-    //         if (ago.includes("ago")) {
-    //           _tracks.push(
-    //             <div className="card mb-4" key={count}>
-    //               <div className="card-body">
-    //                 <p className="card-text">
-    //                   <a href={url} target="_blank" rel="noopener noreferrer" className="track">
-    //                     {artist} - {title}
-    //                   </a>
-    //                 </p>
-    //                 <p className="card-text">
-    //                   <small className="ago">{ago}</small>
-    //                 </p>
-    //               </div>
-    //             </div>
-    //           );
-
-    //           count++;
-    //         }
-    //       });
-    //       setTracks(_tracks);
-    //     }
-    //   })
-    //   .catch((e) => console.log(e));
   };
 
   const onRefreshClick = (e) => {
@@ -85,7 +48,7 @@ function App() {
         </div>
         <div className="row">
           <div className="col">
-            {tracks.length &&
+            {tracks &&
               tracks.map((track) => {
                 return (
                   <div className="card mb-4" key={track.title}>
