@@ -1,0 +1,79 @@
+@import url(https://bootswatch.com/5/flatly/bootstrap.min.css);
+@import url(https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css);
+@import "_animations.scss";
+
+.App {
+  position: relative;
+  padding: 6rem 0 0;
+}
+.track {
+  display: block;
+  text-decoration: none;
+}
+.ago {
+  color: #212529;
+}
+.ago::first-letter {
+  text-transform: uppercase;
+}
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1031;
+}
+.loading-icon {
+  position: fixed;
+  width: 56px;
+  height: 80px;
+  background: transparent url(./audio.svg) no-repeat;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+.refreshing::before {
+  animation: rotation 2s infinite linear;
+}
+.navbar {
+  &::after {
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    background: red;
+    content: "";
+    opacity: 0;
+    position: absolute;
+    transition: opacity 1s ease;
+  }
+
+  &::after {
+    height: 4px;
+    width: 0%;
+    bottom: 0;
+    left: 0;
+  }
+
+  &.loading {
+    &::after {
+      opacity: 1;
+      animation-name: btn-border-bottom;
+      animation-delay: $btn-duration * 2;
+      animation-duration: $btn-duration-total;
+    }
+  }
+}
+.refresh {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  border-radius: 35px;
+  font-size: 24px;
+  line-height: 1.33;
+  position: fixed;
+  bottom: 24px;
+  left: 12px;
+}

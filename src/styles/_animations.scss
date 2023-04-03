@@ -1,0 +1,55 @@
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+$btn-duration: 0.35s;
+$btn-duration-total: ($btn-duration * 4) * 2;
+
+@mixin btnAnimations($name, $anchor, $edge) {
+  $anchor-op: "left";
+
+  @if $anchor == "left" {
+    $anchor-op: "right";
+  }
+  @elseif $anchor == 'top' {
+    $anchor-op: "bottom";
+  }
+  @elseif $anchor == 'bottom' {
+    $anchor-op: "top";
+  }
+
+  @keyframes #{$name} {
+    0% {
+      #{$anchor-op}: auto;
+      #{$anchor}: 0;
+      #{$edge}: 0%;
+    }
+    12.5% {
+      #{$anchor-op}: auto;
+      #{$anchor}: 0;
+      #{$edge}: 100%;
+    }
+    12.6% {
+      #{$anchor-op}: 0;
+      #{$anchor}: auto;
+    }
+    50% {
+      #{$edge}: 100%;
+    }
+    62.5% {
+      #{$edge}: 0%;
+    }
+    100% {
+      #{$anchor-op}: 0;
+      #{$anchor}: auto;
+      #{$edge}: 0%;
+    }
+  }
+}
+
+@include btnAnimations(btn-border-bottom, "left", "width");
