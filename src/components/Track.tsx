@@ -25,7 +25,10 @@ export const Track = ({ track }: { track: TrackType }) => (
               {track.artist} - {track.title}
             </p>
             <p className="card-text">
-              <small className="ago">{track.time}</small>
+              <small className="ago">
+                {new Date(track.time).toLocaleDateString()}{" "}
+                {new Date(track.time).toLocaleTimeString()}
+              </small>
             </p>
           </a>
         </div>

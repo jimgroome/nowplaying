@@ -21,12 +21,7 @@ const getTracks = async (req: NextApiRequest, res: NextApiResponse) => {
       }) => {
         const artist = track.artist["#text"];
         const title = track.name;
-        const time = track.date["#text"];
-        const uts = new Date(
-          parseInt(track.date.uts) * 1000
-        ).toLocaleTimeString();
-
-        console.log(uts);
+        const uts = new Date(parseInt(track.date.uts) * 1000);
 
         const spotify = `https://open.spotify.com/search/${encodeURIComponent(
           artist + " " + title
