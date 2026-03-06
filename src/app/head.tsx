@@ -8,7 +8,7 @@ export default function Head() {
         content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
       />
       <meta name="description" content="Now playing on BBC 6 Music" />
-      <title>Now playing on BBC 6 Music</title>
+      <title>Now Playing</title>
       <meta name="application-name" content="Now Playing" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="default" />

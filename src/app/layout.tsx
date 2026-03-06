@@ -1,10 +1,15 @@
 import "@/app/globals.css";
 import { Lato } from "next/font/google";
+import type { Metadata } from "next";
 
 const lato = Lato({
   subsets: ["latin"],
   weight: ["400", "700"],
 });
+
+export const metadata: Metadata = {
+  title: "Now Playing",
+};
 
 export default function RootLayout({
   children,
