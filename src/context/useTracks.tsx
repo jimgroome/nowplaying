@@ -1,26 +1,41 @@
+"use client";
+
 import { TrackType } from "@/components/Track";
 import axios from "axios";
 import constate from "constate";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 const useTracksHook = () => {
   const [tracks, setTracks] = useState<TrackType[]>([]);
   const [loading, setLoading] = useState(false);
-  const [station, setStation] = useState("bbc6music");
-  const [numberOfTracks, setNumberOfTracks] = useState("20");
+  const [error, setError] = useState<string | null>(null);
 
-  const fetchData = async (clearTracks?: boolean) => {
+  const fetchData = useCallback(async (clearTracks?: boolean) => {
+    const canUseLocalStorage = typeof window !== "undefined";
+    const station = canUseLocalStorage
+      ? localStorage.getItem("now-playing-station") || "bbc6music"
+      : "bbc6music";
+    const numberOfTracks = canUseLocalStorage
+      ? localStorage.getItem("now-playing-tracks") || "20"
+      : "20";
+
     setLoading(true);
+    setError(null);
     if (clearTracks) setTracks([]);
-    const tracks = await axios.get(
-      `/api/tracks?station=${station}&tracks=${numberOfTracks}`
-    );
-    setTracks(tracks.data.tracks);
-    setLoading(false);
-  };
+
+    try {
+      const response = await axios.get(
+        `/api/tracks?station=${station}&tracks=${numberOfTracks}`
+      );
+      setTracks(response.data.tracks);
+    } catch {
+      setError("Unable to load tracks right now. Please try refreshing.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   const onRefreshClick = () => {
-    setLoading(true);
     fetchData();
   };
 
@@ -29,10 +44,7 @@ const useTracksHook = () => {
     setTracks,
     loading,
     setLoading,
-    station,
-    setStation,
-    numberOfTracks,
-    setNumberOfTracks,
+    error,
     fetchData,
     onRefreshClick,
   };
