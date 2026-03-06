@@ -8,6 +8,7 @@ import { useCallback, useState } from "react";
 const useTracksHook = () => {
   const [tracks, setTracks] = useState<TrackType[]>([]);
   const [loading, setLoading] = useState(false);
+  const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const fetchData = useCallback(async (clearTracks?: boolean) => {
@@ -32,6 +33,7 @@ const useTracksHook = () => {
       setError("Unable to load tracks right now. Please try refreshing.");
     } finally {
       setLoading(false);
+      setHasLoadedOnce(true);
     }
   }, []);
 
@@ -44,6 +46,7 @@ const useTracksHook = () => {
     setTracks,
     loading,
     setLoading,
+    hasLoadedOnce,
     error,
     fetchData,
     onRefreshClick,
