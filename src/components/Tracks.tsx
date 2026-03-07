@@ -23,6 +23,16 @@ const Tracks = () => {
     fetchData();
   }, [fetchData]);
 
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      fetchData();
+    }, 30000);
+
+    return () => {
+      window.clearInterval(interval);
+    };
+  }, [fetchData]);
+
   const onStationChange = (newStation: string) => {
     if (typeof window !== "undefined") {
       localStorage.setItem("now-playing-station", newStation);

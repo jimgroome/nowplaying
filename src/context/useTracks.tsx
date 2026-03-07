@@ -3,41 +3,49 @@
 import { TrackType } from "@/components/Track";
 import axios from "axios";
 import constate from "constate";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 const useTracksHook = () => {
   const [tracks, setTracks] = useState<TrackType[]>([]);
   const [loading, setLoading] = useState(false);
   const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const fetchingRef = useRef(false);
   const [station, setStation] = useState(() => {
     if (typeof window === "undefined") return "bbc6music";
     return localStorage.getItem("now-playing-station") || "bbc6music";
   });
 
-  const fetchData = useCallback(async (clearTracks?: boolean, selectedStation?: string) => {
-    const canUseLocalStorage = typeof window !== "undefined";
-    const stationName = selectedStation || station;
-    const numberOfTracks = canUseLocalStorage
-      ? localStorage.getItem("now-playing-tracks") || "20"
-      : "20";
+  const fetchData = useCallback(
+    async (clearTracks?: boolean, selectedStation?: string) => {
+      if (fetchingRef.current) return;
+      fetchingRef.current = true;
 
-    setLoading(true);
-    setError(null);
-    if (clearTracks) setTracks([]);
+      const canUseLocalStorage = typeof window !== "undefined";
+      const stationName = selectedStation || station;
+      const numberOfTracks = canUseLocalStorage
+        ? localStorage.getItem("now-playing-tracks") || "20"
+        : "20";
 
-    try {
-      const response = await axios.get(
-        `/api/tracks?station=${stationName}&tracks=${numberOfTracks}`
-      );
-      setTracks(response.data.tracks);
-    } catch {
-      setError("Unable to load tracks right now. Please try refreshing.");
-    } finally {
-      setLoading(false);
-      setHasLoadedOnce(true);
-    }
-  }, [station]);
+      setLoading(true);
+      setError(null);
+      if (clearTracks) setTracks([]);
+
+      try {
+        const response = await axios.get(
+          `/api/tracks?station=${stationName}&tracks=${numberOfTracks}`
+        );
+        setTracks(response.data.tracks);
+      } catch {
+        setError("Unable to load tracks right now. Please try refreshing.");
+      } finally {
+        setLoading(false);
+        setHasLoadedOnce(true);
+        fetchingRef.current = false;
+      }
+    },
+    [station]
+  );
 
   const onRefreshClick = () => {
     fetchData();
