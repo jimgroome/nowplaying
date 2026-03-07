@@ -2,7 +2,6 @@
 
 import { Header } from "./Header";
 import { Track } from "./Track";
-import { InstallPwaButton } from "./InstallPwaButton";
 import { useTracks } from "@/context/useTracks";
 import { useEffect, useState } from "react";
 import { IoIosRefresh } from "react-icons/io";
@@ -70,7 +69,6 @@ const Tracks = () => {
           );
         })}
       </main>
-
 
       <button
         type="button"
