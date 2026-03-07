@@ -8,17 +8,33 @@ import { useEffect, useState } from "react";
 import { IoIosRefresh } from "react-icons/io";
 
 const Tracks = () => {
-  const { tracks, loading, hasLoadedOnce, error, fetchData, onRefreshClick } =
-    useTracks();
+  const {
+    tracks,
+    loading,
+    hasLoadedOnce,
+    station,
+    setStation,
+    error,
+    fetchData,
+    onRefreshClick,
+  } = useTracks();
   const [openMenuTrackId, setOpenMenuTrackId] = useState<string | null>(null);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
+  const onStationChange = (newStation: string) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("now-playing-station", newStation);
+    }
+    setStation(newStation);
+    fetchData(true, newStation);
+  };
+
   return (
     <div className="relative min-h-screen pt-24">
-      <Header />
+      <Header station={station} onStationChange={onStationChange} />
 
       <main className="mx-auto w-full max-w-5xl px-4 pb-28 sm:px-6">
         {!hasLoadedOnce ? (
@@ -55,7 +71,6 @@ const Tracks = () => {
         })}
       </main>
 
-      <InstallPwaButton />
 
       <button
         type="button"
