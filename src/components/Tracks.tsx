@@ -62,12 +62,13 @@ const Tracks = () => {
             No tracks found.
           </div>
         ) : null}
-        {tracks.map((track) => {
+        {tracks.map((track, index) => {
           const trackId = `${track.time}-${track.artist}-${track.title}`;
           return (
             <Track
               track={track}
               key={track.time}
+              featured={index === 0}
               menuOpen={openMenuTrackId === trackId}
               onToggleMenu={() =>
                 setOpenMenuTrackId((current) =>

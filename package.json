@@ -4,7 +4,7 @@
   "private": true,
   "packageManager": "pnpm@10.26.2",
   "scripts": {
-    "dev": "next dev --webpack",
+    "dev": "next dev --webpack --port 3003",
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint .",
