@@ -16,18 +16,12 @@ export async function GET(request: NextRequest) {
     const tracks = tracksFromApi.map(
       (track: {
         artist: { "#text": string };
-        image?: Array<{ "#text": string; size: string }>;
         name: string;
         date: { "#text": string; uts: string };
       }) => {
         const artist = track.artist["#text"];
         const title = track.name;
         const uts = new Date(parseInt(track.date.uts, 10) * 1000);
-        const image =
-          track.image?.find((item) => item.size === "extralarge")?.["#text"] ||
-          track.image?.find((item) => item.size === "large")?.["#text"] ||
-          track.image?.find((item) => item.size === "medium")?.["#text"] ||
-          null;
 
         const spotify = `https://open.spotify.com/search/${encodeURIComponent(
           `${artist} ${title}`
@@ -52,7 +46,6 @@ export async function GET(request: NextRequest) {
           artist,
           title,
           time: uts,
-          image,
           spotify,
           artistGoogle,
           titleGoogle,

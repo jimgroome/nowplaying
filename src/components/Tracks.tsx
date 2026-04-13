@@ -45,7 +45,7 @@ const Tracks = () => {
     <div className="relative min-h-screen pt-24">
       <Header station={station} onStationChange={onStationChange} />
 
-      <main className="mx-auto w-full max-w-5xl px-4 pb-28 sm:px-6">
+      <main className="mx-auto w-full max-w-3xl px-4 pb-28 sm:px-6">
         {!hasLoadedOnce ? (
           <div className="mb-4 flex items-center gap-3 rounded-lg border border-slate-200 bg-white px-4 py-5 text-sm text-slate-600 shadow-sm">
             <IoIosRefresh className="h-5 w-5 animate-spin text-[rgb(44,62,80)]" />

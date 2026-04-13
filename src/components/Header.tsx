@@ -40,7 +40,7 @@ export const Header = ({ station, onStationChange }: HeaderProps) => {
 
   return (
     <nav className="fixed inset-x-0 top-0 z-30 bg-[rgb(44,62,80)] text-white shadow-md">
-      <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-3 px-4 py-4 sm:px-6">
+      <div className="mx-auto flex w-full items-center justify-between gap-3 px-4 py-4 sm:px-6">
         <span className="text-lg font-semibold tracking-tight">
           Now playing
         </span>
@@ -82,7 +82,9 @@ export const Header = ({ station, onStationChange }: HeaderProps) => {
                       setMenuOpen(false);
                     }}
                     className={`w-full px-3 py-2 text-left transition hover:bg-slate-100 ${
-                      station === singleStation.name ? "bg-slate-100 font-semibold" : ""
+                      station === singleStation.name
+                        ? "bg-slate-100 font-semibold"
+                        : ""
                     }`}
                   >
                     {singleStation.label}
